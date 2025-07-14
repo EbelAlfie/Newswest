@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Newswest
-//
-//  Created by Alfagift on 14/07/25.
-//
-
 import UIKit
 import CoreData
 

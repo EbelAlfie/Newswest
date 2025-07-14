@@ -1,10 +1,3 @@
-//
-//  NewswestUITestsLaunchTests.swift
-//  NewswestUITests
-//
-//  Created by Alfagift on 14/07/25.
-//
-
 import XCTest
 
 final class NewswestUITestsLaunchTests: XCTestCase {

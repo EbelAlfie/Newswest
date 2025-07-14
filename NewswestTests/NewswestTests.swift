@@ -1,10 +1,3 @@
-//
-//  NewswestTests.swift
-//  NewswestTests
-//
-//  Created by Alfagift on 14/07/25.
-//
-
 import Testing
 @testable import Newswest
 
