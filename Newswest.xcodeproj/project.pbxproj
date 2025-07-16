@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DC976ECD2E2651200075A8EF /* env.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DC976ECC2E26511B0075A8EF /* env.xcconfig */; };
+		DC976ECF2E2651310075A8EF /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DC976ECE2E26512E0075A8EF /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		DCB03FCA2E255668005A96F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC976ECC2E26511B0075A8EF /* env.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = env.xcconfig; sourceTree = "<group>"; };
+		DC976ECE2E26512E0075A8EF /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DCB03FB02E255665005A96F8 /* Newswest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Newswest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCB03FC92E255668005A96F8 /* NewswestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewswestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCB03FD32E255668005A96F8 /* NewswestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewswestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +95,8 @@
 		DCB03FA72E255665005A96F8 = {
 			isa = PBXGroup;
 			children = (
+				DC976ECE2E26512E0075A8EF /* .gitignore */,
+				DC976ECC2E26511B0075A8EF /* env.xcconfig */,
 				DCB03FB22E255665005A96F8 /* Newswest */,
 				DCB03FCC2E255668005A96F8 /* NewswestTests */,
 				DCB03FD62E255668005A96F8 /* NewswestUITests */,
@@ -225,6 +234,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC976ECF2E2651310075A8EF /* .gitignore in Resources */,
+				DC976ECD2E2651200075A8EF /* env.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
