@@ -1,7 +1,7 @@
 protocol CategoryUseCase {
-    func getNewsCategory()
+    func getNewsCategory() async throws
     
-    func getTopHeadlines()
+    func getTopHeadlines() async throws
 }
 
 class CategoryUseCaseImpl: CategoryUseCase {
@@ -13,11 +13,11 @@ class CategoryUseCaseImpl: CategoryUseCase {
 }
 
 extension CategoryUseCaseImpl {
-    func getNewsCategory() {
+    func getNewsCategory() async throws {
         
     }
     
-    func getTopHeadlines() {
-        
+    func getTopHeadlines() async throws {
+        return try await repository.getTopHeadlines()
     }
 }

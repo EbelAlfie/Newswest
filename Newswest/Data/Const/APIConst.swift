@@ -1,5 +1,5 @@
 struct APIConst {
-    private let baseUrl = "https://newsapi.org/"
+    static let baseUrl = "https://newsapi.org/"
     
-    static let TOP_HEADLINES = "v2/top-headlines"
+    static let TOP_HEADLINES = "\(baseUrl)v2/top-headlines"
 }

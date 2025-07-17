@@ -1,5 +1,5 @@
 protocol CategoryRepository {
-    func getNewsCategory()
+    func getNewsCategory() async throws
     
-    func getTopHeadlines()
+    func getTopHeadlines() async throws
 }

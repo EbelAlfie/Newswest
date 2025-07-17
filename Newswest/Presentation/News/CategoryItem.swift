@@ -1,6 +1,6 @@
 import UIKit
 
-class CategoryItem: UITabBarItem {
+class CategoryItem: UICollectionViewCell {
     
     private lazy var categoryLabel = {
         let label = UILabel()

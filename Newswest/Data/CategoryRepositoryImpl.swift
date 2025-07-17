@@ -1,10 +1,10 @@
 import Foundation
 
 class CategoryRepositoryImpl: CategoryRepository {
-    private let client: URLSession
+    private let client: NetworkModule
     
-    init(urlSession: URLSession) {
-        self.client = urlSession
+    init(client: NetworkModule) {
+        self.client = client
     }
 }
 
@@ -13,13 +13,15 @@ extension CategoryRepositoryImpl {
         
     }
     
-    func getTopHeadlines() {
+    func getTopHeadlines() async throws {
         do {
+            Response<Void>.loading
             guard let url = URL(string: APIConst.TOP_HEADLINES) else { return } //Throw ajaa
             let request = URLRequest(url: url)
-            client.dataTask(with: <#T##URLRequest#>)
+            let response = await client.request(request)
+            Response.success(data: response)
         } catch {
-            
+            Response<Void>.error(error: error)
         }
     }
 }

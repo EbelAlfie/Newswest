@@ -1,7 +1,7 @@
 import UIKit
 
 class HomeVC: UIViewController {
-    private let viewModel = HomeViewModel()
+    private let viewModel = AppDelegate.provider.provideHomeVM()
     
     private lazy var headerText = {
         let label = UILabel()
@@ -27,11 +27,11 @@ class HomeVC: UIViewController {
     }()
     
     private lazy var categoryTab = {
-        let tab = UISegmentedControl()
+        let tab = UICollectionView()
         return tab
     }()
 
-    private lazy var collections = {
+    private lazy var newsList = {
         let collectionView = UICollectionView()
         return collectionView
     }()
@@ -48,15 +48,20 @@ class HomeVC: UIViewController {
     }
 }
 
-extension HomeVC {
+private extension HomeVC {
     func setupViews() {
         backgroundCard.addSubview(greetingText)
         backgroundCard.addSubview(headerText)
         view.addSubview(backgroundCard)
+        
+        view.addSubview(categoryTab)
+        view.addSubview(newsList)
 
         setupBackground()
         setupHeader()
         setupGreetingText()
+        setupCategoryTab()
+        setupNewsList()
     }
     
     func setupBackground() {
@@ -84,6 +89,23 @@ extension HomeVC {
             greetingText.topAnchor.constraint(equalTo: headerText.bottomAnchor, constant: 10),
             greetingText.leadingAnchor.constraint(equalTo: backgroundCard.leadingAnchor, constant: 20),
             greetingText.trailingAnchor.constraint(equalTo: backgroundCard.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    func setupCategoryTab() {
+        categoryTab.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            categoryTab.topAnchor.constraint(equalTo: backgroundCard.bottomAnchor, constant: 10),
+            categoryTab.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
+    }
+    
+    func setupNewsList() {
+        newsList.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newsList.topAnchor.constraint(equalTo: categoryTab.bottomAnchor),
+            newsList.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsList.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
     }
 }
