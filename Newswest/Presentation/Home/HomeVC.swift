@@ -2,6 +2,8 @@ import UIKit
 
 class HomeVC: UIViewController {
     private let viewModel = AppDelegate.provider.provideHomeVM()
+
+    private let categoryManager = CategoryManager(items: newsCategory)
     
     private lazy var headerText = {
         let label = UILabel()
@@ -27,12 +29,23 @@ class HomeVC: UIViewController {
     }()
     
     private lazy var categoryTab = {
-        let tab = UICollectionView()
+        let layout  = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        let tab = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        tab.register(CategoryItem.self, forCellWithReuseIdentifier: "category")
+        tab.dataSource = categoryManager
+        
         return tab
     }()
 
     private lazy var newsList = {
-        let collectionView = UICollectionView()
+        let layout  = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(NewsItem.self, forCellWithReuseIdentifier: "news")
         return collectionView
     }()
     
@@ -44,7 +57,32 @@ class HomeVC: UIViewController {
     }
     
     private func loadData() {
-        viewModel.getNews()
+        viewModel.getNews(
+            category: "asdad",
+            onSuccess: { data in
+                DispatchQueue.main.async {
+                    self.newsList.reloadData()
+                }
+            },
+            onError: { error in
+                
+            }
+        )
+    }
+}
+
+extension HomeVC: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.newsItem?.articles.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "news", for: indexPath)
+        if let newsItem = cell as? NewsItem, let article = viewModel.newsItem?.articles.getOrNull(indexPath.item) {
+            newsItem.bindData(article: article)
+        }
+        return cell
     }
 }
 
@@ -97,6 +135,7 @@ private extension HomeVC {
         NSLayoutConstraint.activate([
             categoryTab.topAnchor.constraint(equalTo: backgroundCard.bottomAnchor, constant: 10),
             categoryTab.widthAnchor.constraint(equalTo: view.widthAnchor),
+            categoryTab.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
