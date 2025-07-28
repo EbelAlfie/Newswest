@@ -13,8 +13,11 @@ extension CategoryRepositoryImpl {
         
     }
     
-    func getTopHeadlines(completion: @escaping (Response<TopHeadline>) -> Void) {
-        guard let url = URL(string: APIConst.TOP_HEADLINES) else { return } //Throw ajaa
+    func getTopHeadlines(_ category: String, _ completion: @escaping (Response<TopHeadline>) -> Void) {
+        guard let url = URL(string: APIConst.TOP_HEADLINES)?.appending(queryItems: [
+            URLQueryItem(name: "category", value: category)
+        ]) else { return }
+        
         let request = URLRequest(url: url)
         let _ = client.request(request) { data, _, error in
             do {

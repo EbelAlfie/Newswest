@@ -6,6 +6,11 @@ class NetworkModule {
     private lazy var urlSession = {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 20
+
+        if let apiKey = Bundle.main.object(forInfoDictionaryKey: "NEWS_API_KEY") as? String {
+            configuration.httpAdditionalHeaders = ["x-api-key": apiKey]
+        }
+        
         let client = URLSession(configuration: configuration)
         return client
     }()

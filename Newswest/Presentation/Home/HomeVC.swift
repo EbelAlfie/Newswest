@@ -30,7 +30,8 @@ class HomeVC: UIViewController {
     
     private lazy var categoryTab = {
         let layout  = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        layout.scrollDirection = .horizontal
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         
         let tab = UICollectionView(frame: .zero, collectionViewLayout: layout)
         tab.register(CategoryItem.self, forCellWithReuseIdentifier: "category")
@@ -41,11 +42,14 @@ class HomeVC: UIViewController {
 
     private lazy var newsList = {
         let layout  = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 10
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(NewsItem.self, forCellWithReuseIdentifier: "news")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        categoryManager.setListener(reloadData: loadData(_:))
         return collectionView
     }()
     
@@ -53,12 +57,13 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupViews()
-        loadData()
+        loadData(0)
     }
     
-    private func loadData() {
+    private func loadData(_ position: Int) {
+        guard let category = newsCategory.getOrNull(position) else { return }
         viewModel.getNews(
-            category: "asdad",
+            category: category,
             onSuccess: { data in
                 DispatchQueue.main.async {
                     self.newsList.reloadData()
@@ -71,7 +76,19 @@ class HomeVC: UIViewController {
     }
 }
 
-extension HomeVC: UICollectionViewDataSource {
+extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenWidth = collectionView.bounds.width
+            let spacing: CGFloat = 10
+            let insets: CGFloat = 10 * 2
+            let numberOfColumns: CGFloat = 2
+
+            let totalSpacing = insets + (numberOfColumns - 1) * spacing
+            let width = (screenWidth - totalSpacing) / numberOfColumns
+
+            return CGSize(width: width, height: width * 1.2)
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.newsItem?.articles.count ?? 0
@@ -144,7 +161,8 @@ private extension HomeVC {
         NSLayoutConstraint.activate([
             newsList.topAnchor.constraint(equalTo: categoryTab.bottomAnchor),
             newsList.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            newsList.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            newsList.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }

@@ -7,6 +7,8 @@ class CategoryItem: UICollectionViewCell {
     private lazy var categoryLabel = {
         let label = UILabel()
         label.textColor = .black
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 1.0
         return label
     }()
     
@@ -22,6 +24,10 @@ class CategoryItem: UICollectionViewCell {
     
     func bindData(_ label: String) {
         categoryLabel.text = label
+    }
+    
+    func getLabel() -> String {
+        return categoryLabel.text ?? "business"
     }
 }
 

@@ -17,7 +17,7 @@ extension HomeViewModel {
         onSuccess: @escaping (_ data: TopHeadline?) -> Void,
         onError: @escaping (_ error: Error) -> Void
     ) {
-        categoryUseCase.getTopHeadlines { topHeadline in
+        categoryUseCase.getTopHeadlines(category) { topHeadline in
             switch (topHeadline) {
             case .success(let headline):
                 self.newsItem = headline

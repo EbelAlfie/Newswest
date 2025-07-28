@@ -1,13 +1,13 @@
 struct TopHeadlineResponse: Decodable {
     let status: String?
     let totalResults: Int?
-    let articles: [ArticleResponse?]
+    let articles: [ArticleResponse]?
     
     func toDomain() -> TopHeadline {
         return TopHeadline(
             status: status.replaceIfNull(),
             totalResults: totalResults.replaceIfNull(),
-            articles: articles.map { article in article.toDomain() }
+            articles: articles?.map { article in article.toDomain() } ?? []
         )
     }
 }
