@@ -6,7 +6,9 @@ extension UIImageView {
         URLSession.shared.dataTask(with: URLRequest(url: imageUrl)) { data, response, error in
             if let response = data {
                 DispatchQueue.main.async {
-                    self.image = UIImage(data: response)
+                    guard let image = UIImage(data: response) else { return }
+                    image.draw(in: CGRect(x: 0, y: 0, width: 5, height: 5))
+                    self.image = image
                 }
             }
         }.resume()
