@@ -33,7 +33,7 @@ class NewsItem: UICollectionViewCell {
     }
     
     private func bindImage(_ url: String) {
-        imageView.loadImage(url)
+        imageView.loadImage(url, CGSize(width: 100, height: 100))
     }
 }
 

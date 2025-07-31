@@ -90,6 +90,13 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
             return CGSize(width: width, height: width * 1.2)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let selectedArticle = viewModel.newsItem?.articles.getOrNull(indexPath.item) else { return }
+        
+        let newsDetail = NewsDetailVC(article: selectedArticle)
+        navigationController?.pushViewController(newsDetail, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.newsItem?.articles.count ?? 0
     }
