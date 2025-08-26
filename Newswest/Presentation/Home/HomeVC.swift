@@ -3,7 +3,9 @@ import UIKit
 class HomeVC: UIViewController {
     private let viewModel = AppDelegate.provider.provideHomeVM()
 
-    private let categoryManager = CategoryManager(items: newsCategory)
+    private let categoryManager = CategoryManager(
+        items: newsCategory
+    )
     
     private lazy var headerText = {
         let label = UILabel()
@@ -36,7 +38,7 @@ class HomeVC: UIViewController {
         let tab = UICollectionView(frame: .zero, collectionViewLayout: layout)
         tab.register(CategoryItem.self, forCellWithReuseIdentifier: "category")
         tab.dataSource = categoryManager
-        
+        tab.delegate = categoryManager
         return tab
     }()
 
@@ -49,13 +51,13 @@ class HomeVC: UIViewController {
         collectionView.register(NewsItem.self, forCellWithReuseIdentifier: "news")
         collectionView.dataSource = self
         collectionView.delegate = self
-        categoryManager.setListener(reloadData: loadData(_:))
         return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        categoryManager.setListener(reloadData: loadData)
         setupViews()
         loadData(0)
     }

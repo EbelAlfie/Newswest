@@ -29,7 +29,7 @@ class NewsItem: UICollectionViewCell {
     
     func bindData(article: Article) {
         bindImage(article.urlToImage)
-        header.text = article.content
+        header.text = article.title
     }
     
     private func bindImage(_ url: String) {

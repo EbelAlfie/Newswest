@@ -6,9 +6,9 @@ class CategoryManager: NSObject, UICollectionViewDataSource, UICollectionViewDel
     private var reloadData: ((Int) -> Void)? = nil
     
     init(
-        items: [String],
+        items: [String]
     ) {
-        self.newsItem = items
+        self.newsItem = items        
     }
     
     func setListener(reloadData: @escaping (Int) -> Void) {
@@ -29,6 +29,6 @@ class CategoryManager: NSObject, UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        reloadData?(indexPath.item)
+        self.reloadData?(indexPath.item)
     }
 }
