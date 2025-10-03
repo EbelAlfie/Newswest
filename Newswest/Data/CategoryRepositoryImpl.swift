@@ -2,9 +2,11 @@ import Foundation
 
 class CategoryRepositoryImpl: CategoryRepository {
     private let client: NetworkModule
+    private let database: LocalModule
     
-    init(client: NetworkModule) {
+    init(client: NetworkModule, database: LocalModule) {
         self.client = client
+        self.database = database
     }
 }
 
@@ -33,5 +35,13 @@ extension CategoryRepositoryImpl {
                 completion(Response<TopHeadline>.error(error: error))
             }
         }
+    }
+    
+    func getFavoriteNews() -> [Article] {
+        return []
+    }
+    
+    func saveFavoriteNews(article: Article) {
+        
     }
 }

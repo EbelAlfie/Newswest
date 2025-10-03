@@ -3,6 +3,8 @@ import UIKit
 class NewsDetailVC: UIViewController {
     let article: Article?
     
+    private let viewModel: NewsDetailViewModel = AppDelegate.provider.provideNewsDetailVM()
+    
     private let scrollview = {
         let scrollview = UIScrollView()
         return scrollview
@@ -75,6 +77,13 @@ class NewsDetailVC: UIViewController {
 }
 
 private extension NewsDetailVC {
+    
+    @objc func onAddtoFavorite() {
+        if let favoriteArticle = article {
+            viewModel.saveFavoriteNews(article: favoriteArticle)
+        }
+    }
+    
     func setupViews() {
         view.addSubview(scrollview)
         
@@ -85,6 +94,8 @@ private extension NewsDetailVC {
         newsContentView.addSubview(contentText)
         newsContentView.addSubview(authorText)
         newsContentView.addSubview(favoriteButton)
+        
+        favoriteButton.addTarget(self, action: #selector(onAddtoFavorite), for: .touchUpInside)
         
         newsContentView.translatesAutoresizingMaskIntoConstraints = false
         scrollview.translatesAutoresizingMaskIntoConstraints = false
